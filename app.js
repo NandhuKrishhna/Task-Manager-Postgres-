@@ -23,8 +23,8 @@ app.get('/', (req,res)=>{
 
 app.get("/users", async(req,res)=>{
     try {
-        const result = await client.query('SELECT * FROM employees');
-        res.json(result.rows)
+        const result = await client.query('SELECT dept , COUNT(dept) FROM employees GROUP BY dept');
+        res.send(result.rows)
     } catch (error) {
         console.error('Error executing query', error.stack);
         res.status(500).send("Server Error");
